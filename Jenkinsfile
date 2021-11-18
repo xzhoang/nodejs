@@ -37,7 +37,7 @@ pipeline {
 	stage('Test nodejs app') {
             steps {
                 echo 'Accesscing application...'
-                sh "curl 'http://127.0.0.1:3000' "
+                sh "curl 'http://192.168.16.30:3000' "
             }
         }
         
