@@ -31,7 +31,7 @@ pipeline {
         stage('Run nodejs app') {
             steps {
                 echo 'Starting application...'
-                sh 'pm2 start bin/www'
+                sh 'node bin/www'
             }
         }
 	stage('Test nodejs app') {
