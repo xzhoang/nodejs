@@ -16,6 +16,12 @@ pipeline {
                 sh 'npm install'
             }
         }
+	 stage('Install pm2') {
+            steps {
+                echo 'Installing pm2...'
+                sh 'npm install pm2 -g'
+            }
+        }
         stage('Run nodejs app') {
             steps {
                 echo 'Starting application...'
