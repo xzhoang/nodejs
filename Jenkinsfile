@@ -5,7 +5,7 @@ pipeline {
     agent {
         docker {
             image 'node:14'
-            args "-u root -d -p 3000:3000"
+            args "-u root -p 3000:3000"
         }
     }
 
@@ -16,10 +16,11 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Run') {
+        stage('Run nodejs app') {
             steps {
                 echo 'Starting application...'
-                sh 'node bin/www'
+                #sh 'node bin/www'
+                sh 'pm2 start bin/www'
             }
         }
 
