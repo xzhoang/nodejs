@@ -16,10 +16,16 @@ pipeline {
                 sh 'npm install'
             }
         }
-	 stage('Install pm2') {
+         stage('Install pm2') {
             steps {
                 echo 'Installing pm2...'
                 sh 'npm install pm2 -g'
+            }
+        }
+        stage('Install curl') {        
+            steps {
+                echo 'Installing curl...'
+                sh 'apt install curl -y'
             }
         }
         stage('Run nodejs app') {
@@ -28,7 +34,12 @@ pipeline {
                 sh 'pm2 start bin/www'
             }
         }
-
+	stage('Test nodejs app') {
+            steps {
+                echo 'Accesscing application...'
+                sh "curl 'http://127.0.0.1:3000' "
+            }
+        }
         
     }
  }
