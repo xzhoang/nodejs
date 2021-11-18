@@ -31,13 +31,13 @@ pipeline {
         stage('Run nodejs app') {
             steps {
                 echo 'Starting application...'
-                sh 'node bin/www'
+                sh 'pm2 start bin/www'
+                sh ' curl://127.0.0.1:3000 '
             }
         }
 	stage('Test nodejs app') {
             steps {
-                echo 'Accesscing application...'
-                sh "curl 'http://192.168.16.30:3000' "
+                echo 'Finish testing...'
             }
         }
         
