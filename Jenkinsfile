@@ -5,12 +5,12 @@ pipeline {
     agent {
         docker {
             image 'node:14'
-            args '-u root'
+            args "-u root -d -p 3000:3000"
         }
     }
 
     stages {
-        stage('Build') {
+        stage('Build npm install') {
             steps {
                 echo 'Installing Dependencies...'
                 sh 'npm install'
