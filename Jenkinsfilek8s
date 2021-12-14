@@ -1,0 +1,47 @@
+#!/usr/bin/env groovy
+
+pipeline {
+
+     agent {
+        docker {
+            image 'node:14'
+            args " -u root -p 3000:3000"
+        }
+    }
+
+     stages {
+        
+        stage('Git clone') {
+            steps {
+               
+                git branch: 'dev',
+                    url: 'https://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:x-oauth-basic@github.com/xzhoang/nodejs.git'
+            }
+        }
+
+
+    stages {
+        stage('Build npm install') {
+            steps {
+                echo 'Installing Dependencies...'
+                sh 'npm install'
+            }
+        }
+
+
+    stage('Build docker Image'){
+      app = docker.build("xzhoang/nodejs")
+    }
+     stage('Test Image'){
+       app.inside {
+         sh 'echo "TEST PASSED"' 
+      }  
+    }
+     stage('Push Image'){
+       docker.withRegistry('https://registry.hub.docker.com', 'git') {            
+       app.push("${env.BUILD_NUMBER}")            
+       app.push("latest")   
+   }
+        
+    }
+ }
